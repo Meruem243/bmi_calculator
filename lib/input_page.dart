@@ -238,6 +238,12 @@ class _InputPageState extends State<InputPage> {
             margin: const EdgeInsets.only(top: 10.0),
             width: double.infinity,
             height: 80.0,
+            child: const Center(
+              child: Text(
+                'Calculate BMI',
+                style: TextStyle(fontSize: 35.0, fontWeight: FontWeight.w500),
+              ),
+            ),
           ),
         ],
       ),
