@@ -3,7 +3,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'reusable_card.dart';
 import 'icon_content.dart';
 
-const Color reusableCardColor = Color(0xFF1D1E33);
+const Color reusableCardColorActive = Color(0xFF1D1E33);
+const Color reusableCardColorInactive = Color(0xFF111328);
+
 const Color bottomContainerColor = Color(0xFFEB1555);
 
 class InputPage extends StatefulWidget {
@@ -14,6 +16,29 @@ class InputPage extends StatefulWidget {
 }
 
 class _InputPageState extends State<InputPage> {
+  Color maleCardColor = reusableCardColorInactive;
+  Color femaleCardColor = reusableCardColorInactive;
+
+  void updateColor(int gender) {
+    if (gender == 1) {
+      if (maleCardColor == reusableCardColorInactive) {
+        maleCardColor = reusableCardColorActive;
+        femaleCardColor = reusableCardColorInactive;
+      } else {
+        maleCardColor = reusableCardColorInactive;
+      }
+    }
+
+    if (gender == 2) {
+      if (femaleCardColor == reusableCardColorInactive) {
+        femaleCardColor = reusableCardColorActive;
+        maleCardColor = reusableCardColorInactive;
+      } else {
+        femaleCardColor = reusableCardColorInactive;
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,24 +48,37 @@ class _InputPageState extends State<InputPage> {
       ),
       body: Column(
         children: <Widget>[
-          const Expanded(
+          Expanded(
             child: Row(
               children: <Widget>[
                 Expanded(
-                  child: ReusableCard(
-                    colorReusableCard: reusableCardColor,
-                    cardChild: IconContent(
-                      iconToShow: FontAwesomeIcons.mars,
-                      label: 'MALE',
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        updateColor(1);
+                        debugPrint('Male pressed');
+                      });
+                    },
+                    child: ReusableCard(
+                      colorReusableCard: maleCardColor,
+                      cardChild: const IconContent(
+                        iconToShow: FontAwesomeIcons.mars,
+                        label: 'MALE',
+                      ),
                     ),
                   ),
                 ),
                 Expanded(
-                  child: ReusableCard(
-                    colorReusableCard: reusableCardColor,
-                    cardChild: ReusableCard(
-                      colorReusableCard: reusableCardColor,
-                      cardChild: IconContent(
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        updateColor(2);
+                        debugPrint('FeMale pressed');
+                      });
+                    },
+                    child: ReusableCard(
+                      colorReusableCard: femaleCardColor,
+                      cardChild: const IconContent(
                         iconToShow: FontAwesomeIcons.venus,
                         label: 'FEMALE',
                       ),
@@ -52,7 +90,7 @@ class _InputPageState extends State<InputPage> {
           ),
           const Expanded(
             child: ReusableCard(
-              colorReusableCard: reusableCardColor,
+              colorReusableCard: reusableCardColorActive,
               cardChild: Row(),
             ),
           ),
@@ -61,13 +99,13 @@ class _InputPageState extends State<InputPage> {
               children: <Widget>[
                 Expanded(
                   child: ReusableCard(
-                    colorReusableCard: reusableCardColor,
+                    colorReusableCard: reusableCardColorActive,
                     cardChild: Column(),
                   ),
                 ),
                 Expanded(
                   child: ReusableCard(
-                    colorReusableCard: reusableCardColor,
+                    colorReusableCard: reusableCardColorActive,
                     cardChild: Column(),
                   ),
                 ),
