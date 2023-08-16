@@ -1,3 +1,4 @@
+import 'package:bmi_calculator/calculator.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:bmi_calculator/components/reusable_card.dart';
@@ -61,7 +62,6 @@ class _InputPageState extends State<InputPage> {
                     onTap: () {
                       setState(() {
                         updateColor(Gender.male);
-                        debugPrint('Male pressed');
                       });
                     },
                     child: ReusableCard(
@@ -78,7 +78,6 @@ class _InputPageState extends State<InputPage> {
                     onTap: () {
                       setState(() {
                         updateColor(Gender.female);
-                        debugPrint('FeMale pressed');
                       });
                     },
                     child: ReusableCard(
@@ -138,7 +137,6 @@ class _InputPageState extends State<InputPage> {
                         setState(() {
                           height = newValue.round();
                         });
-                        // debugPrint(newValue.toString());
                       },
                     ),
                   ),
@@ -239,10 +237,16 @@ class _InputPageState extends State<InputPage> {
           BottomButton(
             buttonTitle: 'CALCULATE',
             onTap: () {
+              Calculator cal = Calculator(height: height, weight: weight);
+
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const ResultPage(),
+                  builder: (context) => ResultPage(
+                    bmiResult: cal.calculateBMI(),
+                    resultText: cal.getResult(),
+                    interpretation: cal.getInterpretation(),
+                  ),
                 ),
               );
             },
