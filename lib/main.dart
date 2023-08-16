@@ -6,8 +6,6 @@ void main() => runApp(const BMICalculator());
 class BMICalculator extends StatelessWidget {
   const BMICalculator({super.key});
 
-  // BMICalculator({super.key});
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
